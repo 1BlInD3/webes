@@ -1,0 +1,100 @@
+﻿@using ProductionMonitor.Utils;
+@using ProductionMonitor.Models;
+@model  dynamic
+
+<meta http-equiv="refresh" content="720">
+
+<div class="vp" style="background-image: url('../../Image/Backgrounds/@BackgroundShuffler.GetTodaysBackground()'); background-size:cover; z-index:1;">
+    <div class="unit" style="background-color:rgba(3, 117, 175, 0.8);width:33.33vw;height:33.33vh;">
+        <div style="position:absolute; left:10%; top:10%; width:80%; height:80%">
+            <div class="logo-layer animated-layer" style="position:absolute; width:100%; top:10%">
+                <img src="~/Image/fusetech_logo_outlined.png" style="max-width:100%;filter: drop-shadow(3px 3px 5px black);" />
+            </div>
+            <div style="position:absolute; bottom:10%; width:100%; height:30%">
+                <div style="position:absolute; width:100%; height:70%">
+
+                </div>
+                <div style="position:absolute; top:70%; width:100%; height:30%; align-content:center; align-items:center; color:white; font-size:4vh">
+                    <div id="date" class="neutral-cell" style="position:absolute; width:50%; height:100%; left:0; align-items:center;text-align:center; display:inline-grid; color:aliceblue; font-weight:700;"></div>
+                    <div id="time" class="neutral-cell" style="position:absolute; width:50%; height:100%; right:0; align-items:center;text-align:center; display:inline-grid; color:aliceblue; font-weight:700;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="vp" style="z-index:3;">
+    <div class="unit"></div>
+    @{bool isFirst = true; }
+    @foreach (var item in Model.Units as List<ProductionHistory>)
+    {
+        <div class="unit" style="width:33.33vw;height:33.33vh;">
+            <div class="unit-head vertical-header-box">
+                <p class="vertical-header">@item.UnitName</p>
+            </div>
+            <div class="unit-body  head-cell">
+                <div class="vertical-header-box axis-y-header-box">
+                    <p class="vertical-header neutral-cell">Gyártott</p>
+                </div>
+                <div class="vertical-header-box axis-y-header-box">
+                    <p class="vertical-header neutral-cell">Selejt</p>
+                </div>
+                @if (isFirst)
+                {
+                    <div id="foo" class="graph-box" style="top: 0;">
+                        <img src="@{(item.GetProdChartPath().Replace(".png", "") + "_test_old.png").ToString();}" onerror="this.src='/Image/NA.png'" class="graph" />
+                    </div>
+                    isFirst = false;
+                }
+                else
+                {
+                    <div class="graph-box" style="top: 0;">
+                        <img src="@{(item.GetProdChartPath().Replace(".png", "") + "_test_old.png").ToString();}" onerror="this.src='/Image/NA.png'" class="graph" />
+                    </div>
+                }
+                <div class="graph-box" style="top: calc((100% - 2vw) / 2);">
+                    <img src="@{(item.GetProdChartPath().Replace(".png", "") + "_test_new.png").ToString();}" onerror="this.src='/Image/NA.png'" class="graph" />
+                </div>
+                <div class="axis-x-header-box">
+                    @if ((item as ProductionHistory).Count() != 0)
+                    {
+                        foreach (var ph in item)
+                        {
+                            <div class="label-box neutral-cell" style="width:@(100 / item.Count)%">
+                                @ph.Date.ToString("MM-dd")
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="label-box" style="width:100%">
+                            N/A
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+<!--HAVI TÉNYES FELOSZTÁS VOLT-->
+<!--div class="vp third-layer animated-layer" style="z-index:4;">
+    <div class="unit"></div>
+    @foreach (var item in Model.Monthlies as List<MonthlyProduction>)
+    {
+        <div class="unit" style="width:16.66%;">
+            <div class="unit-head vertical-header-box" style="width:20.5%;">
+                <p class="vertical-header">@item.UnitName</p>
+            </div>
+            <div class="unit-body" style="width:79.5%;left:20.5%;">
+                <div class="grid head-cell" style="width:100%;height:25%;">@DateTime.Now.Year évi</div>
+                <div class="grid head-cell" style="width:50%;height:25%;border-right:5px solid white; border-bottom: 5px double white;">Cél</div>
+                <div class="grid head-cell" style="width:50%;height:25%;border-bottom: 5px double white;">Tény</div>
+                <div class="grid neutral-cell target-cell" style="width:50%;height:50%;border-right:5px solid white; ">@item.Target</div>
+                <div class="grid neutral-cell" style="width:50%;height:50%;background:@item.GetEfficiencyColor();">@item.Produced</div>
+            </div>
+        </div>
+    }
+</div-->

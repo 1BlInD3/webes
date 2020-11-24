@@ -1,0 +1,403 @@
+﻿@using ProductionMonitor.Utils;
+@*@using Daily = ProductionMonitor.Models.DailyProductivityReportCollection;*@
+@model  dynamic
+@{ 
+    var Daily = Model.Daily as ProductionMonitor.Models.DailyProductivityReportCollection;
+
+}
+
+<div class="vp" style="background-image: url('../../Image/Backgrounds/@BackgroundShuffler.GetTodaysBackground()'); background-size:cover; z-index:1;">
+    <div class="unit" style="background-color:rgba(3, 117, 175, 0.8);width:33.33vw;height:33.33vh;">
+        <div style="position:absolute; left:10%; top:10%; width:80%; height:80%">
+            <div class="logo-layer animated-layer" style="position:absolute; width:100%; top:10%">
+                <img src="~/Image/fusetech_logo_outlined.png" style="max-width:100%;filter: drop-shadow(3px 3px 5px black);" />
+            </div>
+            <div style="position:absolute; bottom:10%; width:100%; height:30%">
+                <div style="position:absolute; width:100%; height:70%">
+                    
+                </div>
+                <div style="position:absolute; top:70%; width:100%; height:30%; align-content:center; align-items:center; color:white; font-size:4vh">
+                    <div id="date" class="neutral-cell" style="position:absolute; width:50%; height:100%; left:0; align-items:center;text-align:center; display:inline-grid; color:aliceblue; font-weight:700;"></div>
+                    <div id="time" class="neutral-cell" style="position:absolute; width:50%; height:100%; right:0; align-items:center;text-align:center; display:inline-grid; color:aliceblue; font-weight:700;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="vp" style="z-index:2;">
+
+    <div class="column" style="height:20%;width:33.33vw;position:absolute;left:0;top:33.333%">
+
+        <div class="unit-head vertical-header-box">
+            <p class="vertical-header">CT</p>
+        </div>
+
+        <div style="position:absolute;right:0;width:90%;height:100%">
+
+            @{var aramvReport = Daily.GetReport("ÁRAMVÁLTÓ");}
+            <div class="head-cell grid" style="height:33.33%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white">Áramváltó</div>
+            <div class="neutral-cell grid" style="height:33.33%;width:18%">@aramvReport.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:33.33%;width:18%">@aramvReport.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:33.33%;width:18%;background-color:@aramvReport.GetColor()">@aramvReport.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:33.33%;width:18%;background-color:@aramvReport.GetColor()">@aramvReport.GetProduktivitas(1,false)</div>
+
+            @{var aramvExtraReport = Daily.GetReport("ÁRAMVÁLTÓ EXTRA");}
+            <div class="head-cell grid" style="height:33.33%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white;border-bottom:1px solid white">Extra</div>
+            <div class="neutral-cell grid" style="height:33.33%;width:18%;border-bottom:1px solid white">@aramvExtraReport.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:33.33%;width:18%;border-bottom:1px solid white">@aramvExtraReport.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:33.33%;width:18%;border-bottom:1px solid white;background-color:@aramvExtraReport.GetColor()">@aramvExtraReport.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:33.33%;width:18%;border-bottom:1px solid white;background-color:@aramvExtraReport.GetColor()">@aramvExtraReport.GetProduktivitas(1,false)</div>
+
+            @{var ctTotalReport = Daily.GetSumOfReports(new string[] { "ÁRAMVÁLTÓ", "ÁRAMVÁLTÓ EXTRA" });}
+            <div class="head-cell grid" style="height:33.33%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white;">Összesen</div>
+            <div class="neutral-cell grid" style="height:33.33%;width:18%;">@ctTotalReport.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:33.33%;width:18%;">@ctTotalReport.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:33.33%;width:18%;background-color:@ctTotalReport.GetColor()">@ctTotalReport.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:33.33%;width:18%;background-color:@ctTotalReport.GetColor()">@ctTotalReport.GetProduktivitas(1,false)</div>
+
+        </div>
+
+    </div>
+
+    <div class="column" style="height:26.666%;width:33.33vw;position:absolute;left:0;top:53.333%">
+
+        <div class="unit-head vertical-header-box">
+            <p class="vertical-header">SPEC</p>
+        </div>
+
+        <div style="position:absolute;right:0;width:90%;height:100%">
+
+            @{var gcdanReport = Daily.GetReport("GCDAN");}
+            <div class="head-cell grid" style="height:25%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white">GCDAN</div>
+            <div class="neutral-cell grid" style="height:25%;width:18%">@gcdanReport.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:25%;width:18%">@gcdanReport.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:25%;width:18%;background-color:@gcdanReport.GetColor()">@gcdanReport.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:25%;width:18%;background-color:@gcdanReport.GetColor()">@gcdanReport.GetProduktivitas(1,false)</div>
+
+            @{var nhSpecReport = Daily.GetReport("NH-SPEC");}
+            <div class="head-cell grid" style="height:25%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white">NH-SPEC</div>
+            <div class="neutral-cell grid" style="height:25%;width:18%">@nhSpecReport.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:25%;width:18%">@nhSpecReport.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:25%;width:18%;background-color:@nhSpecReport.GetColor()">@nhSpecReport.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:25%;width:18%;background-color:@nhSpecReport.GetColor()">@nhSpecReport.GetProduktivitas(1,false)</div>
+
+            @{var nhSpecExtraReport = Daily.GetReport("SPEC EXTRA");}
+            <div class="head-cell grid" style="height:25%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white;border-bottom:1px solid white">Extra</div>
+            <div class="neutral-cell grid" style="height:25%;width:18%;border-bottom:1px solid white">@nhSpecExtraReport.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:25%;width:18%;border-bottom:1px solid white">@nhSpecExtraReport.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:25%;width:18%;border-bottom:1px solid white;background-color:@nhSpecExtraReport.GetColor()">@nhSpecExtraReport.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:25%;width:18%;border-bottom:1px solid white;background-color:@nhSpecExtraReport.GetColor()">@nhSpecExtraReport.GetProduktivitas(1,false)</div>
+
+            @{var specTotalReport = Daily.GetSumOfReports(new string[] { "GCDAN", "NH-SPEC", "SPEC EXTRA" });}
+            <div class="head-cell grid" style="height:25%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white;">Összesen</div>
+            <div class="neutral-cell grid" style="height:25%;width:18%;">@specTotalReport.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:25%;width:18%;">@specTotalReport.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:25%;width:18%;background-color:@specTotalReport.GetColor()">@specTotalReport.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:25%;width:18%;background-color:@specTotalReport.GetColor()">@specTotalReport.GetProduktivitas(1,false)</div>
+
+        </div>
+
+    </div>
+
+    <div class="column" style="height:20%;width:33.33vw;position:absolute;left:0;bottom:0">
+
+        <div class="unit-head vertical-header-box">
+            <p class="vertical-header">SF</p>
+        </div>
+
+        <div style="position:absolute;right:0;width:90%;height:100%">
+
+            @{var olvszalReport = Daily.GetReport("OLVADÓSZÁL");}
+            <div class="head-cell grid" style="height:33.33%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white">Olv.szál</div>
+            <div class="neutral-cell grid" style="height:33.33%;width:18%">@olvszalReport.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:33.33%;width:18%">@olvszalReport.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:33.33%;width:18%;background-color:@olvszalReport.GetColor()">@olvszalReport.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:33.33%;width:18%;background-color:@olvszalReport.GetColor()">@olvszalReport.GetProduktivitas(1,false)</div>
+
+            @{var sajtoloReport = Daily.GetReport("SAJTOLÓ");}
+            <div class="head-cell grid" style="height:33.33%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white;border-bottom:1px solid white">Sajtoló</div>
+            <div class="neutral-cell grid" style="height:33.33%;width:18%;border-bottom:1px solid white">@sajtoloReport.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:33.33%;width:18%;border-bottom:1px solid white">@sajtoloReport.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:33.33%;width:18%;border-bottom:1px solid white;background-color:@sajtoloReport.GetColor()">@sajtoloReport.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:33.33%;width:18%;border-bottom:1px solid white;background-color:@sajtoloReport.GetColor()">@sajtoloReport.GetProduktivitas(1,false)</div>
+
+            @{var sfTotalReport = Daily.GetSumOfReports(new string[] { "OLVADÓSZÁL", "SAJTOLÓ" });}
+            <div class="head-cell grid" style="height:33.33%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white;">Összesen</div>
+            <div class="neutral-cell grid" style="height:33.33%;width:18%;">@sfTotalReport.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:33.33%;width:18%;">@sfTotalReport.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:33.33%;width:18%;background-color:@sfTotalReport.GetColor()">@sfTotalReport.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:33.33%;width:18%;background-color:@sfTotalReport.GetColor()">@sfTotalReport.GetProduktivitas(1,false)</div>
+
+        </div>
+
+    </div>
+
+
+    <div class="column" style="height:80vh;width:33.33vw;position:absolute;left:33.33vw;top:0">
+
+        <div class="unit-head vertical-header-box">
+            <p class="vertical-header">MERSEN</p>
+        </div>
+
+        <div style="position:absolute;right:0;width:90%;height:100%">
+
+            @{var hal2Report = Daily.GetReport("HAL2");}
+            <div class="head-cell grid" style="height:8.3333%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white">HAL2</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%">@hal2Report.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:8.3333%;width:18%">@hal2Report.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%;background-color:@hal2Report.GetColor()">@hal2Report.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%;background-color:@hal2Report.GetColor()">@hal2Report.GetProduktivitas(1,false)</div>
+
+            @{var hal3Report = Daily.GetReport("HAL3");}
+            <div class="head-cell grid" style="height:8.3333%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white">HAL3</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%">@hal3Report.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:8.3333%;width:18%">@hal3Report.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%;background-color:@hal3Report.GetColor()">@hal3Report.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%;background-color:@hal3Report.GetColor()">@hal3Report.GetProduktivitas(1,false)</div>
+
+            @{var lm1Report = Daily.GetReport("LM1");}
+            <div class="head-cell grid" style="height:8.3333%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white">LM1</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%">@lm1Report.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:8.3333%;width:18%">@lm1Report.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%;background-color:@lm1Report.GetColor()">@lm1Report.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%;background-color:@lm1Report.GetColor()">@lm1Report.GetProduktivitas(1,false)</div>
+
+            @{var lm2Report = Daily.GetReport("LM2");}
+            <div class="head-cell grid" style="height:8.3333%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white">LM2</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%">@lm2Report.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:8.3333%;width:18%">@lm2Report.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%;background-color:@lm2Report.GetColor()">@lm2Report.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%;background-color:@lm2Report.GetColor()">@lm2Report.GetProduktivitas(1,false)</div>
+
+            @{var lm3Report = Daily.GetReport("LM3");}
+            <div class="head-cell grid" style="height:8.3333%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white">LM3</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%">@lm3Report.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:8.3333%;width:18%">@lm3Report.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%;background-color:@lm3Report.GetColor()">@lm3Report.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%;background-color:@lm3Report.GetColor()">@lm3Report.GetProduktivitas(1,false)</div>
+
+            @{var lma000Report = Daily.GetReport("LMA000");}
+            <div class="head-cell grid" style="height:8.3333%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white">LMA000</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%">@lma000Report.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:8.3333%;width:18%">@lma000Report.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%;background-color:@lma000Report.GetColor()">@lma000Report.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%;background-color:@lma000Report.GetColor()">@lma000Report.GetProduktivitas(1,false)</div>
+
+            @{var lmmReport = Daily.GetReport("LMM");}
+            <div class="head-cell grid" style="height:8.3333%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white">LMM</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%">@lmmReport.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:8.3333%;width:18%">@lmmReport.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%;background-color:@lmmReport.GetColor()">@lmmReport.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%;background-color:@lmmReport.GetColor()">@lmmReport.GetProduktivitas(1,false)</div>
+
+            @{var lmm000Report = Daily.GetReport("LMM000");}
+            <div class="head-cell grid" style="height:8.3333%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white">LMM000</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%">@lmm000Report.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:8.3333%;width:18%">@lmm000Report.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%;background-color:@lmm000Report.GetColor()">@lmm000Report.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%;background-color:@lmm000Report.GetColor()">@lmm000Report.GetProduktivitas(1,false)</div>
+
+            @{var lmm4Report = Daily.GetReport("LMM4");}
+            <div class="head-cell grid" style="height:8.3333%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white">LMM4</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%">@lmm4Report.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:8.3333%;width:18%">@lmm4Report.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%;background-color:@lmm4Report.GetColor()">@lmm4Report.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%;background-color:@lmm4Report.GetColor()">@lmm4Report.GetProduktivitas(1,false)</div>
+
+            @{var lmmhcReport = Daily.GetReport("LMMHC");}
+            <div class="head-cell grid" style="height:8.3333%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white">LMMHC</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%">@lmmhcReport.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:8.3333%;width:18%">@lmmhcReport.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%;background-color:@lmmhcReport.GetColor()">@lmmhcReport.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%;background-color:@lmmhcReport.GetColor()">@lmmhcReport.GetProduktivitas(1,false)</div>
+
+            @{var mersenExtraReport = Daily.GetReport("NH-MERSEN EXTRA");}
+            <div class="head-cell grid" style="height:8.3333%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white;border-bottom:1px solid white">Extra</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%;border-bottom:1px solid white">@mersenExtraReport.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:8.3333%;width:18%;border-bottom:1px solid white">@mersenExtraReport.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%;border-bottom:1px solid white;background-color:@mersenExtraReport.GetColor()">@mersenExtraReport.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%;border-bottom:1px solid white;background-color:@mersenExtraReport.GetColor()">@mersenExtraReport.GetProduktivitas(1,false)</div>
+
+            @{var mersenTotalReport = Daily.GetSumOfReports(new string[] { "HAL2", "HAL3", "LM1", "LM2", "LM3", "LMA000", "LMM", "LMM000", "LMM4", "LMMHC", "NH-MERSEN EXTRA" });}
+            <div class="head-cell grid" style="height:8.3333%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white;">Összesen</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%;">@mersenTotalReport.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:8.3333%;width:18%;">@mersenTotalReport.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%;background-color:@mersenTotalReport.GetColor()">@mersenTotalReport.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:8.3333%;width:18%;background-color:@mersenTotalReport.GetColor()">@mersenTotalReport.GetProduktivitas(1,false)</div>
+
+        </div>
+
+    </div>
+
+    <div class="column" style="height:20vh;width:33.33vw;position:absolute;left:33.33vw;top:80vh">
+
+        <div class="unit-head vertical-header-box">
+            <p class="vertical-header">WEBER</p>
+        </div>
+
+        <div style="position:absolute;right:0;width:90%;height:100%">
+
+            @{var weberReport = Daily.GetReport("NH-WEBER");}
+            <div class="head-cell grid" style="height:33.33%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white">WEBER</div>
+            <div class="neutral-cell grid" style="height:33.33%;width:18%">@weberReport.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:33.33%;width:18%">@weberReport.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:33.33%;width:18%;background-color:@weberReport.GetColor()">@weberReport.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:33.33%;width:18%;background-color:@weberReport.GetColor()">@weberReport.GetProduktivitas(1,false)</div>
+
+            @{var weberExtraReport = Daily.GetReport("NH-WEBER EXTRA");}
+            <div class="head-cell grid" style="height:33.33%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white;border-bottom:1px solid white">Extra</div>
+            <div class="neutral-cell grid" style="height:33.33%;width:18%;border-bottom:1px solid white">@weberExtraReport.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:33.33%;width:18%;border-bottom:1px solid white">@weberExtraReport.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:33.33%;width:18%;border-bottom:1px solid white;background-color:@weberExtraReport.GetColor()">@weberExtraReport.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:33.33%;width:18%;border-bottom:1px solid white;background-color:@weberExtraReport.GetColor()">@weberExtraReport.GetProduktivitas(1,false)</div>
+
+            @{var weberTotalReport = Daily.GetSumOfReports(new string[] { "NH-WEBER", "NH-WEBER EXTRA" });}
+            <div class="head-cell grid" style="height:33.33%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white;">Összesen</div>
+            <div class="neutral-cell grid" style="height:33.33%;width:18%;">@weberTotalReport.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:33.33%;width:18%;">@weberTotalReport.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:33.33%;width:18%;background-color:@weberTotalReport.GetColor()">@weberTotalReport.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:33.33%;width:18%;background-color:@weberTotalReport.GetColor()">@weberTotalReport.GetProduktivitas(1,false)</div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="column" style="height:40%;width:33.33vw;position:absolute;left:66.66vw;top:0">
+        <div class="unit-head vertical-header-box">
+            <p class="vertical-header">MSCH</p>
+        </div>
+
+        <div style="position:absolute;right:0;width:90%;height:100%">
+            @{var hal1Report = Daily.GetReport("HAL1");}
+            <div class="head-cell grid" style="height:16.666%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white">HAL1</div>
+            <div class="neutral-cell grid" style="height:16.666%;width:18%">@hal1Report.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:16.666%;width:18%">@hal1Report.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:16.666%;width:18%;background-color:@hal1Report.GetColor()">@hal1Report.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:16.666%;width:18%;background-color:@hal1Report.GetColor()">@hal1Report.GetProduktivitas(1,false)</div>
+
+            @{var halmReport = Daily.GetReport("HALM");}
+            <div class="head-cell grid" style="height:16.666%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white">HALM</div>
+            <div class="neutral-cell grid" style="height:16.666%;width:18%">@halmReport.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:16.666%;width:18%">@halmReport.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:16.666%;width:18%;background-color:@halmReport.GetColor()">@halmReport.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:16.666%;width:18%;background-color:@halmReport.GetColor()">@halmReport.GetProduktivitas(1,false)</div>
+
+            @{var msm3Report = Daily.GetReport("MSM3");}
+            <div class="head-cell grid" style="height:16.666%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white">MSM3</div>
+            <div class="neutral-cell grid" style="height:16.666%;width:18%">@msm3Report.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:16.666%;width:18%">@msm3Report.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:16.666%;width:18%;background-color:@msm3Report.GetColor()">@msm3Report.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:16.666%;width:18%;background-color:@msm3Report.GetColor()">@msm3Report.GetProduktivitas(1,false)</div>
+
+            @{var tsaReport = Daily.GetReport("TSA");}
+            <div class="head-cell grid" style="height:16.666%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white">TSA</div>
+            <div class="neutral-cell grid" style="height:16.666%;width:18%">@tsaReport.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:16.666%;width:18%">@tsaReport.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:16.666%;width:18%;background-color:@tsaReport.GetColor()">@tsaReport.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:16.666%;width:18%;background-color:@tsaReport.GetColor()">@tsaReport.GetProduktivitas(1,false)</div>
+
+            @{var mschExtraReport = Daily.GetReport("NH-MSCH EXTRA");}
+            <div class="head-cell grid" style="height:16.666%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white;border-bottom:1px solid white">Extra</div>
+            <div class="neutral-cell grid" style="height:16.666%;width:18%;border-bottom:1px solid white">@mschExtraReport.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:16.666%;width:18%;border-bottom:1px solid white">@mschExtraReport.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:16.666%;width:18%;border-bottom:1px solid white;background-color:@mschExtraReport.GetColor()">@mschExtraReport.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:16.666%;width:18%;border-bottom:1px solid white;background-color:@mschExtraReport.GetColor()">@mschExtraReport.GetProduktivitas(1,false)</div>
+
+            @{var mschTotalReport = Daily.GetSumOfReports(new string[] { "HAL1", "HALM", "MSM3", "TSA", "NH-MSCH EXTRA" });}
+            <div class="head-cell grid" style="height:16.666%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white;">Összesen</div>
+            <div class="neutral-cell grid" style="height:16.666%;width:18%;">@mschTotalReport.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:16.666%;width:18%;">@mschTotalReport.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:16.666%;width:18%;background-color:@mschTotalReport.GetColor()">@mschTotalReport.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:16.666%;width:18%;background-color:@mschTotalReport.GetColor()">@mschTotalReport.GetProduktivitas(1,false)</div>
+
+        </div>
+    </div>
+
+
+    <div class="column" style="height:26.666%;width:33.33vw;position:absolute;left:66.66vw;top:40%">
+        <div class="unit-head vertical-header-box">
+            <p class="vertical-header">MV</p>
+        </div>
+
+        <div style="position:absolute;right:0;width:90%;height:100%">
+
+            @{var hhReport = Daily.GetReport("HH");}
+            <div class="head-cell grid" style="height:25%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white">HH</div>
+            <div class="neutral-cell grid" style="height:25%;width:18%">@hhReport.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:25%;width:18%">@hhReport.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:25%;width:18%;background-color:@hhReport.GetColor()">@hhReport.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:25%;width:18%;background-color:@hhReport.GetColor()">@hhReport.GetProduktivitas(1,false)</div>
+
+            @{var mvReport = Daily.GetReport("MV");}
+            <div class="head-cell grid" style="height:25%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white">MV</div>
+            <div class="neutral-cell grid" style="height:25%;width:18%">@mvReport.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:25%;width:18%">@mvReport.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:25%;width:18%;background-color:@mvReport.GetColor()">@mvReport.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:25%;width:18%;background-color:@mvReport.GetColor()">@mvReport.GetProduktivitas(1,false)</div>
+
+            @{var hhmvExtraReport = Daily.GetReport("HH MV EXTRA");}
+            <div class="head-cell grid" style="height:25%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white;border-bottom:1px solid white">Extra</div>
+            <div class="neutral-cell grid" style="height:25%;width:18%;border-bottom:1px solid white">@hhmvExtraReport.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:25%;width:18%;border-bottom:1px solid white">@hhmvExtraReport.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:25%;width:18%;border-bottom:1px solid white;background-color:@hhmvExtraReport.GetColor()">@hhmvExtraReport.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:25%;width:18%;border-bottom:1px solid white;background-color:@hhmvExtraReport.GetColor()">@hhmvExtraReport.GetProduktivitas(1,false)</div>
+
+            @{var hhmvTotalReport = Daily.GetSumOfReports(new string[] { "HH", "MV", "HH MV EXTRA" });}
+            <div class="head-cell grid" style="height:25%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white;">Összesen</div>
+            <div class="neutral-cell grid" style="height:25%;width:18%;">@hhmvTotalReport.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:25%;width:18%;">@hhmvTotalReport.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:25%;width:18%;background-color:@hhmvTotalReport.GetColor()">@hhmvTotalReport.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:25%;width:18%;background-color:@hhmvTotalReport.GetColor()">@hhmvTotalReport.GetProduktivitas(1,false)</div>
+
+        </div>
+    </div>
+
+    <div class="column" style="height:33.333%;width:33.33vw;position:absolute;left:66.66vw;bottom:0">
+        <div class="unit-head vertical-header-box">
+            <p class="vertical-header">TOTAL</p>
+        </div>
+
+        <div style="position:absolute;right:0;width:90%;height:100%">
+
+            @{var subTotalsReport = Daily.GetSumOfReports(StringData.Munkahelyek.Where(x => x != "WASTE" && x != "REWORK" && x != "TROGGER").ToArray());}
+            <div class="head-cell grid" style="height:20%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white;border-bottom:1px solid white">Részössz.</div>
+            <div class="neutral-cell grid" style="height:20%;width:18%;border-bottom:1px solid white">@subTotalsReport.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:20%;width:18%;border-bottom:1px solid white">@subTotalsReport.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:20%;width:18%;border-bottom:1px solid white;background-color:@subTotalsReport.GetColor()">@subTotalsReport.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:20%;width:18%;border-bottom:1px solid white;background-color:@subTotalsReport.GetColor()">@subTotalsReport.GetProduktivitas(1,false)</div>
+
+            @{var wasteReport = Daily.GetReport("WASTE");}
+            <div class="head-cell grid" style="height:20%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white">Waste</div>
+            <div class="neutral-cell grid" style="height:20%;width:18%">@wasteReport.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:20%;width:18%">@wasteReport.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:20%;width:18%;background-color:@wasteReport.GetColor()">@wasteReport.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:20%;width:18%;background-color:@wasteReport.GetColor()">@wasteReport.GetProduktivitas(1,false)</div>
+
+            @{var reworkReport = Daily.GetReport("REWORK");}
+            <div class="head-cell grid" style="height:20%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white">Rework</div>
+            <div class="neutral-cell grid" style="height:20%;width:18%">@reworkReport.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:20%;width:18%">@reworkReport.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:20%;width:18%;background-color:@reworkReport.GetColor()">@reworkReport.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:20%;width:18%;background-color:@reworkReport.GetColor()">@reworkReport.GetProduktivitas(1,false)</div>
+
+            @{var troggerReport = Daily.GetReport("TROGGER");}
+            <div class="head-cell grid" style="height:20%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white;border-bottom:1px solid white">Trogger</div>
+            <div class="neutral-cell grid" style="height:20%;width:18%;border-bottom:1px solid white">@troggerReport.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:20%;width:18%;border-bottom:1px solid white">@troggerReport.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:20%;width:18%;border-bottom:1px solid white;background-color:@troggerReport.GetColor()">@troggerReport.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:20%;width:18%;border-bottom:1px solid white;background-color:@troggerReport.GetColor()">@troggerReport.GetProduktivitas(1,false)</div>
+
+            @{var totalsReport = Daily.GetSumOfReports(StringData.Munkahelyek);}
+            <div class="head-cell grid" style="height:20%;width:28%;justify-content:end;padding-right:5px;border-right:5px double white;">Végössz.</div>
+            <div class="neutral-cell grid" style="height:20%;width:18%;">@totalsReport.GetDolgozokSzama()</div>
+            <div class="neutral-cell target-cell grid" style="height:20%;width:18%;">@totalsReport.GetNormaIdo()</div>
+            <div class="neutral-cell grid" style="height:20%;width:18%;background-color:@totalsReport.GetColor()">@totalsReport.GetDolgOra()</div>
+            <div class="neutral-cell grid" style="height:20%;width:18%;background-color:@totalsReport.GetColor()">@totalsReport.GetProduktivitas(1,false)</div>
+
+        </div>
+    </div>
+
+</div>

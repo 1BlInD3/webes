@@ -1,0 +1,75 @@
+﻿.animated-layer {
+    animation-duration: 600s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.first-layer {
+    animation-name: first-layer-frames;
+}
+
+.second-layer {
+    animation-name: second-layer-frames;
+}
+
+.logo-layer {
+    animation-name: logo-layer-frames;
+}
+
+@keyframes first-layer-frames {
+    0% {
+        opacity: 1;
+    }
+
+    49.5% {
+        opacity: 1;
+    }
+
+    50.5% {
+        opacity: 0;
+    }
+
+    99% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes second-layer-frames {
+    0% {
+        opacity: 0;
+    }
+
+    49.5% {
+        opacity: 0;
+    }
+
+    50.5% {
+        opacity: 1;
+    }
+
+    99% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes logo-layer-frames {
+    0%, 49.5% {
+        transform: rotateX(0deg) rotateY(0deg);
+    }
+
+    50.5%, 99% {
+        transform: rotateX(360deg) rotateY(0deg);
+    }
+
+    100% {
+        transform: rotateX(360deg) rotateY(360deg);
+    }
+}

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29306.81
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitorManager", "MonitorManager\MonitorManager.csproj", "{37892F88-A562-482C-B283-1A11B714D5C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductionMonitor", "ProductionMonitor\ProductionMonitor.csproj", "{F265F720-0B4E-446D-BCB0-D8BE4AD4E229}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{37892F88-A562-482C-B283-1A11B714D5C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37892F88-A562-482C-B283-1A11B714D5C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37892F88-A562-482C-B283-1A11B714D5C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37892F88-A562-482C-B283-1A11B714D5C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F265F720-0B4E-446D-BCB0-D8BE4AD4E229}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F265F720-0B4E-446D-BCB0-D8BE4AD4E229}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F265F720-0B4E-446D-BCB0-D8BE4AD4E229}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F265F720-0B4E-446D-BCB0-D8BE4AD4E229}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3309BDFF-5B69-4349-A9D4-E78F95247C33}
+	EndGlobalSection
+EndGlobal

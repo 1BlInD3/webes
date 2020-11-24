@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="MonitorManager.ReportView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MonitorManager"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="9*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Name="tbName" FontSize="40"/>
+        <TextBlock Name="tbDate" FontSize="23" Grid.Row="1"/>
+        <CheckBox Grid.Row="2" Content="12 órás műszakbeosztás" HorizontalAlignment="Center" VerticalAlignment="Center"
+                  x:Name="cbTwelveHourDay" Checked="cbTwelveHourDay_Checked" Unchecked="cbTwelveHourDay_Unchecked"/>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Name="tbShift1" Text="Délelőtti műszak:" HorizontalAlignment="Right" Grid.Row="1"/>
+            <TextBlock Name="tbShift2" Text="Délutáni műszak:" HorizontalAlignment="Right" Grid.Row="2"/>
+            <TextBlock Name="tbShift3" Text="Éjszakai műszak:" HorizontalAlignment="Right" Grid.Row="3"/>
+            <TextBlock Text="Gyártott cél (db)" Grid.Column="1" HorizontalAlignment="Center"/>
+            <TextBlock Text="Gyártott tény (db)" Grid.Column="2" HorizontalAlignment="Center"/>
+            <TextBlock Text="Gyártott tény (%)" Grid.Column="3" HorizontalAlignment="Center"/>
+            <TextBlock Text="Selejt tény (db)" Grid.Column="4" HorizontalAlignment="Center"/>
+            <TextBlock Text="Selejt tény (%)" Grid.Column="5" HorizontalAlignment="Center"/>
+
+            <TextBlock Name="tbShift1Target" Grid.Column="1" Grid.Row="1"/>
+            <TextBlock Name="tbShift2Target" Grid.Column="1" Grid.Row="2"/>
+            <TextBlock Name="tbShift3Target" Grid.Column="1" Grid.Row="3"/>
+            <TextBlock Name="tbShift1AmountP" Grid.Column="2" Grid.Row="1"/>
+            <TextBlock Name="tbShift2AmountP" Grid.Column="2" Grid.Row="2"/>
+            <TextBlock Name="tbShift3AmountP" Grid.Column="2" Grid.Row="3"/>
+            <TextBlock Name="tbShift1PercentP" Grid.Column="3" Grid.Row="1"/>
+            <TextBlock Name="tbShift2PercentP" Grid.Column="3" Grid.Row="2"/>
+            <TextBlock Name="tbShift3PercentP" Grid.Column="3" Grid.Row="3"/>
+            <TextBlock Name="tbShift1AmountW" Grid.Column="4" Grid.Row="1"/>
+            <TextBlock Name="tbShift2AmountW" Grid.Column="4" Grid.Row="2"/>
+            <TextBlock Name="tbShift3AmountW" Grid.Column="4" Grid.Row="3"/>
+            <TextBlock Name="tbShift1PercentW" Grid.Column="5" Grid.Row="1"/>
+            <TextBlock Name="tbShift2PercentW" Grid.Column="5" Grid.Row="2"/>
+            <TextBlock Name="tbShift3PercentW" Grid.Column="5" Grid.Row="3"/>
+        </Grid>
+    </Grid>
+</UserControl>

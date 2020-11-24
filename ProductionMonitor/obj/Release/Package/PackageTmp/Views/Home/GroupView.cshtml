@@ -1,0 +1,160 @@
+﻿@using ProductionMonitor.Utils;
+@using ProductionMonitor.Models;
+@model  dynamic
+
+<meta http-equiv="refresh" content="720">
+
+<div class="vp" style="background-image: url('../../Image/Backgrounds/@BackgroundShuffler.GetTodaysBackground()'); background-size:cover; z-index:1;">
+    <div class="unit" style="background-color:rgba(3, 117, 175, 0.8);width:33.33vw;height:33.33vh;">
+        <div style="position:absolute; left:10%; top:10%; width:80%; height:80%">
+            <div class="logo-layer animated-layer" style="position:absolute; width:100%; top:10%">
+                <img src="~/Image/fusetech_logo_outlined.png" style="max-width:100%;filter: drop-shadow(3px 3px 5px black);" />
+            </div>
+            <div style="position:absolute; bottom:10%; width:100%; height:30%">
+                <div style="position:absolute; width:100%; height:70%">
+
+                </div>
+                <div style="position:absolute; top:70%; width:100%; height:30%; align-content:center; align-items:center; color:white; font-size:4vh">
+                    <div id="date" class="neutral-cell" style="position:absolute; width:50%; height:100%; left:0; align-items:center;text-align:center; display:inline-grid; color:aliceblue; font-weight:700;"></div>
+                    <div id="time" class="neutral-cell" style="position:absolute; width:50%; height:100%; right:0; align-items:center;text-align:center; display:inline-grid; color:aliceblue; font-weight:700;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="vp first-layer animated-layer" style="z-index:2;">
+    <div class="unit"></div>
+    @foreach (var item in Model.Units as List<ProductionHistory>)
+    {
+        <div class="unit">
+            <div class="unit-head vertical-header-box">
+                <p class="vertical-header">@item.UnitName</p>
+            </div>
+            @{var day = (item as ProductionHistory).Count() != 0 ? (item as ProductionHistory).Last() : new ProductionDay();}
+
+            <div class="unit-body">
+                <div class="grid head-cell" style="border-right:5px double white; border-bottom: 5px double white;"><b>@day.GetDateStr()</b></div>
+                <div class="grid head-cell" style="border-right:1px solid white; border-bottom: 5px double white"><b>Cél (db)</b></div>
+                <div class="grid head-cell" style="border-right:1px solid white; border-bottom: 5px double white"><b>Tény (db)</b></div>
+                <div class="grid head-cell" style="border-bottom: 5px double white"><b>Selejt (%)</b></div>
+
+                @if (!day.IsTwelveHourDay())
+                {
+                    <div class="grid head-cell" style="border-right:5px double white; border-bottom: 1px solid white;"><b>Délelőtt</b></div>
+                    if (day.ShiftExists(0))
+                    {
+                        <div class="grid neutral-cell target-cell" style="border-right:1px solid white; border-bottom: 1px solid white">@day.GetShift(0).ShiftTarget</div>
+                        <div class="grid neutral-cell" style="border-right:1px solid white; border-bottom: 1px solid white; background-color:@day.GetShift(0).GetEfficiencyColor('P')">@day.GetShift(0).ProducedPieces</div>
+                        <div class="grid neutral-cell" style="border-bottom:1px solid white; background-color:@day.GetShift(0).GetEfficiencyColor('W')">@day.GetShift(0).GetWastedPercentage().ToString("N2")</div>
+                    }
+                    else
+                    {
+                        <div class="grid neutral-cell nodata-cell" style="border-right:1px solid white; border-bottom: 1px solid white; ">&mdash;</div>
+                        <div class="grid neutral-cell nodata-cell" style="border-right:1px solid white; border-bottom: 1px solid white; ">&mdash;</div>
+                        <div class="grid neutral-cell nodata-cell" style="border-bottom:1px solid white; ">&mdash;</div>
+                    }
+                    <div class="grid head-cell" style="border-right:5px double white; border-bottom: 1px solid white"><b>Délután</b></div>
+                    if (day.ShiftExists(8))
+                    {
+                        <div class="grid neutral-cell target-cell" style="border-right:1px solid white; border-bottom: 1px solid white">@day.GetShift(8).ShiftTarget</div>
+                        <div class="grid neutral-cell" style="border-right:1px solid white; border-bottom: 1px solid white; background-color:@day.GetShift(8).GetEfficiencyColor('P')">@day.GetShift(8).ProducedPieces</div>
+                        <div class="grid neutral-cell" style="border-bottom: 1px solid white; background-color:@day.GetShift(8).GetEfficiencyColor('W')">@day.GetShift(8).GetWastedPercentage().ToString("N2")</div>
+                    }
+                    else
+                    {
+                        <div class="grid neutral-cell nodata-cell" style="border-right:1px solid white; border-bottom: 1px solid white; ">&mdash;</div>
+                        <div class="grid neutral-cell nodata-cell" style="border-right:1px solid white; border-bottom: 1px solid white; ">&mdash;</div>
+                        <div class="grid neutral-cell nodata-cell" style="border-bottom: 1px solid white; ">&mdash;</div>
+                    }
+                    <div class="grid head-cell" style="border-right:5px double white;"><b>Éjszaka</b></div>
+                    if (day.ShiftExists(16))
+                    {
+                        <div class="grid neutral-cell target-cell" style="border-right:1px solid white;">@day.GetShift(16).ShiftTarget</div>
+                        <div class="grid neutral-cell" style="border-right:1px solid white; background:@day.GetShift(16).GetEfficiencyColor('P')">@day.GetShift(16).ProducedPieces</div>
+                        <div class="grid neutral-cell" style="background:@day.GetShift(16).GetEfficiencyColor('W')">@day.GetShift(16).GetWastedPercentage().ToString("N2")</div>
+                    }
+                    else
+                    {
+                        <div class="grid neutral-cell nodata-cell" style="border-right:1px solid white; ">&mdash;</div>
+                        <div class="grid neutral-cell nodata-cell" style="border-right:1px solid white; ">&mdash;</div>
+                        <div class="grid neutral-cell nodata-cell" style="">&mdash;</div>
+                    }
+                }
+                else
+                {
+                    <div class="grid head-cell" style="height:37.5%; border-right:5px double white; border-bottom: 1px solid white"><b>Nappal</b></div>
+                    if (day.ShiftExists(0))
+                    {
+                        <div class="grid neutral-cell target-cell" style="height:37.5%; border-right:1px solid white; border-bottom: 1px solid white">@day.GetShift(0).ShiftTarget</div>
+                        <div class="grid neutral-cell" style="height:37.5%; border-right:1px solid white; border-bottom: 1px solid white; background:@day.GetShift(0).GetEfficiencyColor('P')">@day.GetShift(0).ProducedPieces</div>
+                        <div class="grid neutral-cell" style="height:37.5%; border-bottom:1px solid white; background:@day.GetShift(0).GetEfficiencyColor('W')">@day.GetShift(0).GetWastedPercentage().ToString("N2")</div>
+                    }
+                    else
+                    {
+                        <div class="grid neutral-cell nodata-cell" style="height:37.5%; border-right:1px solid white; border-bottom: 1px solid white; ">&mdash;</div>
+                        <div class="grid neutral-cell nodata-cell" style="height:37.5%; border-right:1px solid white; border-bottom: 1px solid white; ">&mdash;</div>
+                        <div class="grid neutral-cell nodata-cell" style="height:37.5%; border-bottom:1px solid white; ">&mdash;</div>
+                    }
+                    <div class="grid head-cell" style="height:37.5%; border-right:5px double white; border-bottom: 1px solid white"><b>Éjjel</b></div>
+                    if (day.ShiftExists(12))
+                    {
+                        <div class="grid neutral-cell target-cell" style="height:37.5%; border-right:1px solid white; border-bottom: 1px solid white">@day.GetShift(12).ShiftTarget</div>
+                        <div class="grid neutral-cell" style="height:37.5%; border-right:1px solid white; border-bottom: 1px solid white; background:@day.GetShift(12).GetEfficiencyColor('P')">@day.GetShift(12).ProducedPieces</div>
+                        <div class="grid neutral-cell" style="height:37.5%; border-bottom: 1px solid white; background:@day.GetShift(12).GetEfficiencyColor('W')">@day.GetShift(12).GetWastedPercentage().ToString("N2")</div>
+                    }
+                    else
+                    {
+                        <div class="grid neutral-cell nodata-cell" style="height:37.5%; border-right:1px solid white; border-bottom: 1px solid white; ">&mdash;</div>
+                        <div class="grid neutral-cell nodata-cell" style="height:37.5%; border-right:1px solid white; border-bottom: 1px solid white; ">&mdash;</div>
+                        <div class="grid neutral-cell nodata-cell" style="height:37.5%; border-bottom: 1px solid white; ">&mdash;</div>
+                    }
+                }
+            </div>
+        </div>
+    }
+</div>
+
+<div class="vp second-layer animated-layer" style="z-index:3;">
+    <div class="unit"></div>
+    @foreach (var item in Model.Units as List<ProductionHistory>)
+    {
+        <div class="unit" style="width:33.33vw;height:33.33vh;">
+            <div class="unit-head vertical-header-box">
+                <p class="vertical-header">@item.UnitName</p>
+            </div>
+            <div class="unit-body  head-cell">
+                <div class="vertical-header-box axis-y-header-box">
+                    <p class="vertical-header neutral-cell">Gyártott</p>
+                </div>
+                <div class="vertical-header-box axis-y-header-box">
+                    <p class="vertical-header neutral-cell">Selejt</p>
+                </div>
+                <div class="graph-box" style="top: 0;">
+                    <img src="@item.GetProdChartPath()" onerror="this.src='/Image/NA.png'" class="graph" />
+                </div>
+                <div class="graph-box" style="top: calc((100% - 2vw) / 2);">
+                    <img src="@item.GetWasteChartPath()" onerror="this.src='/Image/NA.png'" class="graph" />
+                </div>
+                <div class="axis-x-header-box">
+                    @if ((item as ProductionHistory).Count() != 0)
+                    {
+                        foreach (var ph in item)
+                        {
+                            <div class="label-box neutral-cell" style="width:@(100 / item.Count)%">
+                                @ph.Date.ToString("MM-dd")
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="label-box" style="width:100%">
+                            N/A
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

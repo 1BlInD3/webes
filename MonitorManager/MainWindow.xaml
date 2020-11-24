@@ -1,0 +1,37 @@
+﻿<Window x:Class="MonitorManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MonitorManager"
+        mc:Ignorable="d"
+        Title="Monitor Manager" Height="600" Width="1024" FontSize="16" ResizeMode="NoResize">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="12*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <ContentControl Name="ccReport"/>
+        
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Button x:Name="btnMonthlies" IsEnabled="False" Content="Havi tények" Click="btnMonthlies_Click"/-->
+            <Button x:Name="btnGraph" Grid.Column="0" IsEnabled="False" Content="Grafikon gen." Click="btnGraph_Click"/>
+            <TextBlock x:Name="tbPages" Grid.Column="2"/>
+            <Button x:Name="btnBack" IsEnabled="False" Grid.Column="3" Content="Vissza" Click="btnBack_Click"/>
+            <Button x:Name="btnForth" IsEnabled="False" Grid.Column="4" Content="Kezdés" Click="btnForth_Click"/>
+            <Button x:Name="btnDone" IsEnabled="False" Grid.Column="5" Content="Jóváhagy" Click="btnDone_Click"/>
+        </Grid>
+    </Grid>
+
+</Window>

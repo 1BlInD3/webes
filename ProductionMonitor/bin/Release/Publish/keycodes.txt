@@ -1,0 +1,17 @@
+--------LOGITECH-------------
+Left	PageUp		33
+Right	Next		34
+Play	F5		116
+Play	Esc		27
+Stop	OemPeriod	190
+
+----------LG-----------------
+Page+	PageUp		33
+Page-	PageDown	34
+T.OPT			1004
+TEXT			459
+INFO			457
+Subtitle		460
+Stop			413
+REC			416
+0-9			48-57

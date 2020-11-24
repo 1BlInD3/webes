@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Production Monitor</title>
+
+    <script type="text/javascript" src="~/Scripts/updateclock.js"></script>
+    <script type="text/javascript" src="~/Scripts/remotecontrol.js"></script>
+    <script type="text/javascript" src="~/Scripts/fullscreen.js"></script>
+
+    <link rel="icon" href="@Url.Content("~/content/pm.ico")" />
+
+    @Styles.Render("~/Content/css")
+</head>
+<body>
+    @RenderBody()
+    <script>
+        updateClock();
+    </script>
+</body>
+</html>

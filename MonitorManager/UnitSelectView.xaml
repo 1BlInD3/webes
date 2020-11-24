@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="MonitorManager.UnitSelectView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MonitorManager"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontWeight="Bold" Margin="100,0">Válaszd ki a jóváhagyni kívánt cellákat!</Label>
+        <!--CheckBox Name="cbGroup1" VerticalAlignment="Center" Margin="100,0" Grid.Row="1" Checked="cbGroup_Checked" Unchecked="cbGroup_Checked"/-->
+        <CheckBox Name="cbGroup2" VerticalAlignment="Center" Margin="100,0" Grid.Row="2" Checked="cbGroup_Checked" Unchecked="cbGroup_Checked"/>
+        <CheckBox Name="cbGroup3" VerticalAlignment="Center" Margin="100,0" Grid.Row="3" Checked="cbGroup_Checked" Unchecked="cbGroup_Checked"/>
+        <CheckBox Name="cbGroup4" VerticalAlignment="Center" Margin="100,0" Grid.Row="4" Checked="cbGroup_Checked" Unchecked="cbGroup_Checked"/>
+
+    </Grid>
+</UserControl>
